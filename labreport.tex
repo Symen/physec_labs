@@ -127,12 +127,13 @@ Mobility, and Wireless Communications Winter 2017/18}{February 2018}{Darmstadt, 
 Radio signals have been used for more than a century now, to broadcast
 information wirelessly. The best known one is FM radio, as it can be
 received by everyone with a common radio receiver. While FM radio was
-originally developt to broadcast music and news reports from different
+originally developed to broadcast music and news reports from different
 radio stations, more enhanced receivers allowed to process additional
 information (e.g traffic updates in car radios) next to the existing
-ones. Therefore, the \emph{Radio Data System (RDS)} was invented. In
-this lab report we will give an introduction of RDS, how it can be
-implemented and how future work might look like.
+ones. Therefore, the \emph{Radio Data System (RDS)} was invented. 
+In this lab report we will give a detailed insight into RDS and how it can be
+implemented. We have divided the report into a preparation section, to discuss the
+data that will be transmitted via RDS and several sections for the individual tasks we have solved. 
 
 %Write a short paragraph (5-15 lines) on each of the following tasks:
 %\begin{itemize}
@@ -151,8 +152,7 @@ implemented and how future work might look like.
 
 \section{Implementation}
 
-In this Section we describe how RDS signals can be generated using
-MATLAB.
+In the following we describe how RDS signals can be generated using MATLAB.
 
 \hypertarget{Preparation:ux20Basebandux20Coding}{%
 \subsubsection{Preparation: Baseband
@@ -174,11 +174,15 @@ information we are about to generate.
 \item We do not carry traffic announcements
 \item Our radio station is in Germany
 \item We cover a local area
-\item You can choose your own programme reference number
+\item We use 1 as the program reference number
 \end{itemize}
 
-Using the standard documentation of the RDS, we can create the following
-table, which represents the given information in a baseband coding.
+To be able to transfer this information it has to be converted into a binary stream using baseband
+coding. The standard documentation\cite[] of RDS defines that the stream of bits is split into
+multiple groups. Each of them consists of four blocks, which have predefined meanings. Since, each
+group can only transmit two symbols we need four groups to send the programme service name. The
+overall encoding is shown in the table1.
+
 
 \begin{center}
   \begin{tabular}{ l | c | c | c | r}
@@ -208,9 +212,9 @@ Group 4 Block 4 & 0 1 0 0 & 1 1 1 1 & 0 0 1 0 & 0 0 1 1\tabularnewline
 Generation}\label{Task1:ux20Bitstreamux20Generation}}
 
 Within this first task we initialize the message we wanna send.
-Therefore, we import the bit stream we previousely prepared and append
+Therefore, we import the bit stream we previously prepared and append
 the corresponding checksum and offset. After decoding the message in the
-first test we get the following ouput, which shows the hexadecimal,
+first test we get the following output, which shows the hexadecimal,
 binary and decoded representation.
 
 \hypertarget{Decoderux20Output}{%
@@ -235,7 +239,7 @@ Since we are about to use frequency modulation (FM) in one of the next
 steps it is recommended to perform a differential encoding. The problem
 with modulation is that a receiver of a signal can not determine the
 logic assigned to a phase shift, as it might be introduced by the
-wireless channel. Differential encoding provides unambigiuous signal
+wireless channel. Differential encoding provides unambiguous signal
 reception, because the encoding of the data depends not only on the
 current signal state (bit), but also on the previous one.
 (\(y_i = y_{i-1} \bigoplus x\)).
@@ -266,8 +270,8 @@ two lines of Task3). A binary zero becomes a low to high transition, a
 binary one a high to low transition. This type of representation is
 named after G.E. Thomas. After the differential encoded bitstream has
 been mapped to Manchester Encoded symbols, we get a RDS signal. However,
-as shown in Figure1 this signal also contains frequencies we actualy
-dont need. Therefore, we apply a lowpass filter and normalize the
+as shown in Figure1 this signal also contains frequencies we actually
+don't need. Therefore, we apply a lowpass filter and normalize the
 resulting signal.
 
 \begin{verbatim}
@@ -289,9 +293,9 @@ actual data we wanna transmit. First of all, we have to change the
 frequency of the current signal to 57 kHz, since this is the expected
 frequency for a RDS signal. Therefore, we multiply the RDS signal with a
 57 kHz sine wave. To generate a complete baseband signal we also have to
-insert a pilot and an audio signal. The pilot signal is genarated with a
+insert a pilot and an audio signal. The pilot signal is generated with a
 19 kHz sine wave and it is used to upconvert the RDS signal. The audio
-signal is genarated as a mono signal, which means that we sum up the
+signal is generated as a mono signal, which means that we sum up the
 left and the right audio channel at a frequency of 0.3 to 15 kHz. The
 spectrum of the final baseband signal is shown in Figure3.
 
@@ -312,8 +316,18 @@ Modulation}\label{Task5:ux20Frequencyux20Modulation}}
 \end{figure}
 
 
+\hypertarget{Task6:ux20Transmission by USRPux20}{%
+\subsubsection{Task6: Transmission by USRP}
+\label{Task6:ux20Transmission by USRPux20}}
+Finally, we setup a fm radio, connect to a USRP device and send the frequency modulated RDS signal.
+As shown in Figure4 the fm radio receives and decodes the signal and displays the program service
+name \textit{#SEEMOO#} on the screen.
 
 \section{Future Work}
+Using this prototype implementation we could think of 
+Moreover, the implementation could be extended by an additional module that also allows to receive
+RDS signals using MATLAB. This module could be used to analyze RDS traffic in different locations.
+
 
 
 \bibliographystyle{ACM-Reference-Format}
