@@ -24,8 +24,8 @@
 % \acmISBN{123-4567-24-567/08/06}
 
 %Conference
-\acmConference[SEEMOO Seminars Winter 2017/18]{Seminars on Networking, Security, 
-Mobility, and Wireless Communications Winter 2017/18}{February 2018}{Darmstadt, Germany} 
+\acmConference[SEEMOO PhySec (Lab RDS) 2017/18]{Physical Layer Security
+in Wireless Systems (Lab RDS) 2017/18}{February 2018}{Darmstadt, Germany}
 
 \acmYear{2018}
 \copyrightyear{2018}
@@ -78,7 +78,10 @@ Mobility, and Wireless Communications Winter 2017/18}{February 2018}{Darmstadt, 
 %  \item If you have results, describe them.
 %  \item What is the impact of the answers to your questions?
 %  \end{itemize}
-
+This lab report presents the creation and transmission of a Radio Data System signal.
+The signal is generated on the basis of given sample data according to the corresponding
+standard document. In the end, we could successfully receive and decode the signal
+using a customary FM radio.
 
 
 \end{abstract}
@@ -272,9 +275,9 @@ two lines of Task3). A binary zero becomes a low to high transition, a
 binary one a high to low transition. This type of representation is
 named after G.E. Thomas. After the differential encoded bitstream has
 been mapped to Manchester Encoded symbols, we get a RDS signal. However,
+as shown in Figure1 this signal also contains frequencies we actually
 dont need. Therefore, we apply a lowpass filter and normalize the
 resulting signal. This normalized signal is shown in Figure2.
-as shown in Figure1 this signal also contains frequencies we actualy
 
 \begin{verbatim}
 bit_clk = [ones(80,1);-ones(80,1)];
@@ -381,9 +384,10 @@ applying a differential and a Manchester encoding. Then we generated the baseban
 modulated and upconverted it and finally transmitted it using an USRP. The customary FM radio we used
 to receive the signal showed the correct programme service name.\\
 In the preparation for and during our work on this lab we learned how to build a RDS signal from the scratch
-just using the standard documentation. Furthermore we learned which mechanisms are used to ensure that
+using the standard documentation. Furthermore we learned which mechanisms are used to ensure that
 the receiver can decode the signal with as little loss of information as possible and how to implement them
-using MATLAB.
+using MATLAB. More precisely, we learned about the usage of the encoding schemes, the combination of
+different signals and frequency modulation.
 
 \section{Future Work}
 Using this prototype implementation we could think of several questions one could investigate. First, is it
