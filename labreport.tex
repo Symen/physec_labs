@@ -160,14 +160,11 @@ data that will be transmitted via RDS and several sections for the individual ta
 In the following we describe how RDS signals can be generated using MATLAB.
 
 \hypertarget{Preparation:ux20Basebandux20Coding}{%
-\subsubsection{Preparation: Baseband
+\subsection{Preparation: Baseband
 Coding}\label{Preparation:ux20Basebandux20Coding}}
 
 Before the actual implementation we have to define and format the
 information we are about to generate.
-
-\hypertarget{Setup}{%
-\paragraph{Setup}\label{Setup}}
 
 \begin{itemize}
 %\tightlist % <-- hab ich mal auskommentiert weil das bei mir zu Problemen fuehrt
@@ -186,12 +183,13 @@ To be able to transfer this information it has to be converted into a binary str
 coding. The standard documentation\cite{rds_standard} of RDS defines that the stream of bits is split into
 multiple groups. Each of them consists of four blocks, which have predefined meanings. Since, each
 group can only transmit two symbols we need four groups to send the programme service name. The
-overall encoding is shown in the table1.
+overall encoding is shown in table\ref{tab:baseband_coding}.
 
 
-\begin{center}
-  \begin{tabular}{ l | c | c | c | r}
-    \hline
+\begin{table}[H]
+\centering
+\begin{tabular}{ l | c | c | c | r}
+\hline
 Group 1 Block 1 & 1 1 0 1 & 0 0 0 0 & 0 0 0 0 & 0 0 0 1\tabularnewline
 Group 1 Block 2 & 0 0 0 0 & 1 0 0 1 & 0 1 0 0 & 1 0 0 0\tabularnewline
 Group 1 Block 1 & 1 1 0 1 & 0 0 0 0 & 0 0 0 0 & 0 0 0 1\tabularnewline
@@ -208,12 +206,14 @@ Group 4 Block 1 & 1 1 0 1 & 0 0 0 0 & 0 0 0 0 & 0 0 0 1\tabularnewline
 Group 4 Block 2 & 0 0 0 0 & 1 0 0 1 & 0 1 0 0 & 1 0 1 1\tabularnewline
 Group 4 Block 3 & 1 1 0 1 & 0 0 0 0 & 0 0 0 0 & 0 0 0 1\tabularnewline
 Group 4 Block 4 & 0 1 0 0 & 1 1 1 1 & 0 0 1 0 & 0 0 1 1\tabularnewline
-    \hline
-  \end{tabular}
-\end{center}
+\hline
+\end{tabular}
+\caption{The Baseband Coding of \textit{\#SEEMOO\#}}
+\label{tab:baseband_coding}
+\end{table}
 
 \hypertarget{Task1:ux20Bitstreamux20Generation}{%
-\subsubsection{Task1: Bitstream
+\subsection{Task1: Bitstream
 Generation}\label{Task1:ux20Bitstreamux20Generation}}
 
 Within this first task we initialize the message we want to send.
@@ -237,7 +237,7 @@ Pop Music (country:DE/LY/YU/__/__, area:Local, program:1)
 \end{verbatim}
 
 \hypertarget{Task2:ux20Differentialux20Encoding}{%
-\subsubsection{Task2: Differential
+\subsection{Task2: Differential
 Encoding}\label{Task2:ux20Differentialux20Encoding}}
 
 Since we are about to use frequency modulation (FM) in one of the next
@@ -251,49 +251,53 @@ current signal state (bit), but also on the previous one.
 
 
 \hypertarget{Task3:ux20Manchesterux20Encoding}{%
-\subsubsection{Task3: Manchester
+\subsection{Task3: Manchester
 Encoding}\label{Task3:ux20Manchesterux20Encoding}}
 
 \begin{figure}[tb!]
 	\hfill
 	\includegraphics[width=1\linewidth]{rds_plot.png}
-	\caption{}
+	\caption{RDS signal without lowpass filter.}
 	\label{fig:rds_plot}
 \end{figure}
 
 \begin{figure}[tb!]
 	\includegraphics[width=1\linewidth]{rds_filt_plot.png}
-	\caption{}
+	\caption{Lowpass filtered RDS signal.}
 	\label{fig:rds_filt_plot}
 \end{figure}
 
 \emph{Manchester Encoding}, also called
-\protect\hypertarget{Phaseux20Encodingux20ux28PEux29}{}{}\textbf{Phase
+\protect\hypertarget{Phaseux20Encodingux20ux28PEux29}{}{}\textit{Phase
 Encoding (PE)}, is a line code. The information is represented by the
-edge of a signal that corresponds to the clock (generated in the first
-two lines of Task3). A binary zero becomes a low to high transition, a
+edge of a signal that corresponds to the clock. While we generate the clock signal in line 2 and 3
+of the source code of Task3, Manchester Encoding is performed using the \textit{kron} functions starting at
+line 6. A binary zero becomes a low to high transition, a
 binary one a high to low transition. This type of representation is
-named after G.E. Thomas. After the differential encoded bitstream has
+named after G.E. Thomas \cite{tanenbaum1996computer}. After the differential encoded bitstream has
 been mapped to Manchester Encoded symbols, we get a RDS signal. However,
 as shown in Figure1 this signal also contains frequencies we actually
 dont need. Therefore, we apply a lowpass filter and normalize the
 resulting signal. This normalized signal is shown in Figure2.
 
 \begin{verbatim}
-bit_clk = [ones(80,1);-ones(80,1)];
-bit_clk = repmat(bit_clk,length( ...
-    bitstream_differentially_encoded),1);
-rds = kron(bitstream_differentially_encoded, ...
-    [ones(80,1);-ones(80,1)]) ...
-    + kron(~bitstream_differentially_encoded, ...
-    [-ones(80,1);ones(80,1)]);
-f6 = fir1(300,2400/fs*2);
-rds_filt = filter(f6,1,rds);
-rds_filt = rds_filt/max(rds_filt);
+ 1 fprintf('Task 3: Manchester Encoding %.2f\n', toc);
+ 2 bit_clk = [ones(80,1);-ones(80,1)];
+ 3 bit_clk = repmat(bit_clk,
+ 4	     length(bitstream_differentially_encoded),1);
+ 5 
+ 6 rds = kron(bitstream_differentially_encoded, 
+ 7 	      [ones(80,1);-ones(80,1)]) ...
+ 8     + kron(~bitstream_differentially_encoded, 
+ 9	      [-ones(80,1);ones(80,1)]);
+10 
+11 f6 = fir1(300,2400/fs*2);
+12 rds_filt = filter(f6,1,rds);
+13 rds_filt = rds_filt/max(rds_filt);
 \end{verbatim}
 
 \hypertarget{Task4:ux20Generateux20Basebandux20Signal}{%
-\subsubsection{Task4: Generate Baseband
+\subsection{Task4: Generate Baseband
 Signal}\label{Task4:ux20Generateux20Basebandux20Signal}}
 
 We will now generate the baseband signal. This signal represents the
@@ -309,12 +313,12 @@ spectrum of the final baseband signal is shown in Figure3.
 
 \begin{figure}[tb!]
 	\includegraphics[width=1\linewidth]{baseband_spectrum2.png}
-	\caption{}
+	\caption{Frequency spectrum of the baseband signal}
 	\label{fig:rds_filt_plot}
 \end{figure}
 
 \hypertarget{Task5:ux20Frequencyux20Modulation}{%
-\subsubsection{Task5: Frequency
+\subsection{Task5: Frequency
 Modulation}\label{Task5:ux20Frequencyux20Modulation}}
 In software defined radios, the generated baseband signal we generated in Task4 is first frequency
 modulated before it is upconvert to the carrier frequency. This is done by combining the carrier frequency
@@ -323,11 +327,11 @@ In order to do the upconversion, a quadrature modulator is used. It seperately u
 \[
 I(t) = \cos (2 \pi f_\Delta \int_0^t m(\tau)\,\mathrm{d}\tau)
 \]
-by multiplication by a \( \cos(2 \pi f_c t) \) signal and the quadrature component
+by multiplication of a \( \cos(2 \pi f_c t) \) signal and the quadrature component
 \[
 Q(t) = \sin (2 \pi f_\Delta \int_0^t m(\tau)\,\mathrm{d}\tau)
 \]
-by multiplication by a \( -\sin(2 \pi f_c t) \)  signal. For readability reasons, we will
+by multiplication of a \( -\sin(2 \pi f_c t) \)  signal. For readability reasons, we will
 use the symbols \( \omega = 2 \pi f_c \) and \( \theta_m (t) = \int_0^t m(\tau)\,\mathrm{d}\tau \)
 in the following. First, we calculate the upconversion of the inphase component
 \begin{align*}
@@ -365,13 +369,13 @@ fm_{BB} = exp(j2\pi f_\Delta T_s \sum_{k=0}^n m(kT_s))
 
 \begin{figure}[tb!]
 	\includegraphics[width=1\linewidth]{radio_display.png}
-	\caption{}
+	\caption{The FM radio after receiving our RDS signal.}
 	\label{fig:rds_filt_plot}
 \end{figure}
 
 
 \hypertarget{Task6:ux20Transmission by USRPux20}{%
-\subsubsection{Task6: Transmission by USRP}
+\subsection{Task6: Transmission by USRP}
 \label{Task6:ux20Transmission by USRPux20}}
 Finally, we setup a FM radio, connect to a USRP device and send the frequency modulated RDS signal.
 As shown in Figure4 the FM radio receives and decodes the signal and displays the programme service

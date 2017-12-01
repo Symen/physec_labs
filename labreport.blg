@@ -1,5 +1,5 @@
-This is BibTeX, Version 0.99d (TeX Live 2017)
-Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: labreport.aux
 The style file: ACM-Reference-Format.bst
 Reallocated singl_function (elt_size=4) to 100 items from 50.
@@ -18,45 +18,46 @@ Reallocated singl_function (elt_size=4) to 100 items from 50.
 Warning--no key, author in rds_standard
 Warning--no author, editor, organization, or key in rds_standard
 Warning--empty author in rds_standard
-You've used 1 entry,
+Warning--empty address in tanenbaum1996computer
+You've used 2 entries,
             5795 wiz_defined-function locations,
-            1317 strings with 15386 characters,
-and the built_in function-call counts, 835 in all, are:
-= -- 74
-> -- 0
+            1322 strings with 15481 characters,
+and the built_in function-call counts, 1701 in all, are:
+= -- 159
+> -- 38
 < -- 0
-+ -- 3
-- -- 0
-* -- 53
-:= -- 59
-add.period$ -- 5
-call.type$ -- 1
-change.case$ -- 5
-chr.to.int$ -- 1
-cite$ -- 13
-duplicate$ -- 88
-empty$ -- 64
-format.name$ -- 0
-if$ -- 180
++ -- 16
+- -- 16
+* -- 117
+:= -- 168
+add.period$ -- 11
+call.type$ -- 2
+change.case$ -- 11
+chr.to.int$ -- 2
+cite$ -- 15
+duplicate$ -- 165
+empty$ -- 118
+format.name$ -- 20
+if$ -- 363
 int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 0
-newline$ -- 48
-num.names$ -- 0
-pop$ -- 45
+missing$ -- 2
+newline$ -- 56
+num.names$ -- 8
+pop$ -- 75
 preamble$ -- 1
-purify$ -- 13
+purify$ -- 28
 quote$ -- 0
-skip$ -- 29
+skip$ -- 57
 stack$ -- 0
-substring$ -- 51
-swap$ -- 6
+substring$ -- 104
+swap$ -- 12
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 30
-warning$ -- 8
-while$ -- 0
+type$ -- 45
+warning$ -- 9
+while$ -- 8
 width$ -- 0
-write$ -- 55
-(There were 8 warnings)
+write$ -- 72
+(There were 9 warnings)
