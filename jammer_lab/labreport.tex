@@ -1,0 +1,136 @@
+%!TEX root = labreport.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[sigconf]{acmart}
+
+\usepackage{booktabs} % For formal tables
+\usepackage{amsmath}
+
+% Copyright
+\setcopyright{none}
+%\setcopyright{acmcopyright}
+%\setcopyright{acmlicensed}
+%\setcopyright{rightsretained}
+%\setcopyright{usgov}
+%\setcopyright{usgovmixed}
+%\setcopyright{cagov}
+%\setcopyright{cagovmixed}
+
+
+% DOI
+% \acmDOI{10.475/123_4}
+
+% ISBN
+% \acmISBN{123-4567-24-567/08/06}
+
+%Conference
+\acmConference[SEEMOO PhySec (Lab RDS) 2017/18]{Physical Layer Security
+in Wireless Systems (Lab RDS) 2017/18}{February 2018}{Darmstadt, Germany}
+
+\acmYear{2018}
+\copyrightyear{2018}
+
+% \acmArticle{4}
+% \acmPrice{15.00}
+
+\settopmatter{printacmref=false}
+
+\begin{document}
+\title{Reactive Jamming}
+
+% Comment out the following for you final document
+\subtitle{Lab Report}
+
+
+
+\author{Daniel May}
+\author{Simon Schmitt}
+\affiliation{%
+  \institution{Technische Universtit\"at Darmstadt}
+}
+\email{daniel\_nicolas.may@stud.tu-darmstadt.de}
+\email{simon\_johannes.schmitt@stud.tu-darmstadt.de}
+
+% The default list of authors is too long for headers.
+\renewcommand{\shortauthors}{Daniel May \& Simon Schmitt}
+
+
+\begin{abstract}
+%  Answer the following questions with roughly one sentence each:
+%
+%  One-page summary:
+%  \begin{itemize}
+%  \item What is the topic of your main seminar paper?
+%  \item What problem does it solve?
+%  \item Why is that topic/problem important?
+%  \item What methodologies do the authors apply?
+%  \item What are the main contributions of the paper?
+%  \item What are the key findings/results of the paper?
+%  \end{itemize}
+%  
+%  Final seminar paper:
+%  \begin{itemize}
+%  \item What is your research question?
+%  \item Why are that question and your topic important?
+%  \item How did you proceed to answer the question?
+%  \item What (do you think) is the answer to your question?
+%  \item Give an overall opinion on your topic.
+%  \item If you have results, describe them.
+%  \item What is the impact of the answers to your questions?
+%  \end{itemize}
+This lab report presents the creation of an reactive jammer. We will describe how the frame handling
+works on the WARP and how it can be used to suppress individual targeted devices or communications
+respectively. At the end of this report we evaluate the performance of our jammer and discuss
+possible improvements.
+
+
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+Wireless signals, as they are used in most of today's analog or digital communications, are very
+sensitive and affectable by the environment. Signals with the same frequency can interfere and
+suppress each other. This effect is typically used by jammers to prevent a certain receiver from
+decoding a signal. While jamming is typically associated with malicious behaviour or within military
+conflicts to hinder an opposing party from exchanging information, there also exists other jamming
+schemes, so called friendly jamming. Friendly jamming can be used to protect vulnerable systems from
+adversarial actions, e.g., pacemakers that can be wirelessly reprogrammed. More recent work also
+demonstrated that secrete key-exchanges can be realized at the physical layer utilizing a jammer.
+
+The objective of this lab was to create a reactive WiFi jammer using the Wireless Open-Access
+Research Platform (WARP). WARP is a programmable Software-Defined Radio (SDR) which provides a basic
+implementation of the 802.11g WiFi standard. The architecture of the WARP allows to transmit frames
+while still receiving a signal. Thus WiFi transmissions with a certain Medium Access Control (MAC)
+address can be analyzed and jammed if they are matching a target address.
+
+In comparison with existing jammers this approach is more precise as it only suppresses the signals
+of a certain target, while still allowing the communication of other devices. This also results in
+much lower power-consumptions, due to the smaller amount of frames that have to be jammed.
+
+%Write a short paragraph (5-15 lines) on each of the following tasks:
+%\begin{itemize}
+%\item Motivate your topic in general.
+%\item Why is your research question important in that field?
+%\item Give one practical example.
+%\item To what existing work is your topic related, what has been done there?
+%\item What are the (planned) main contributions of your paper? e.g., a
+%new attacker model, a summary, a comparison, \dots
+%\item Give an outline of the paper: describe each of your (planned)
+%sections in one sentence.
+%\end{itemize}
+
+
+%\section{Background and Related Work}
+
+\section{Implementation}
+
+\section{Conclusion and Take-Away}
+
+\section{Future Work}
+
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{library} 
+
+\end{document}
