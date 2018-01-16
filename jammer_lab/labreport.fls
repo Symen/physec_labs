@@ -255,6 +255,9 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/newtx/ntxexa.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/libertine/LinLibertineTI-tlf-t1.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/libertine/LinLibertineTB-tlf-t1.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/libertine/LinLibertineTB-tlf-t1.tfm
+INPUT block_diagram_warp.png
+INPUT ./block_diagram_warp.png
+INPUT ./block_diagram_warp.png
 INPUT labreport.bbl
 INPUT labreport.bbl
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/libertine/LinBiolinumTB-tlf-t1.vf
@@ -272,6 +275,8 @@ INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/libertine/LinLibertineT-tlf-
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/libertine/LinLibertineT-tlf-t1--base.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/libertine/LinLibertineTI-tlf-t1.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/libertine/LinLibertineTI-tlf-t1--base.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/libertine/LinLibertineTB-tlf-t1.vf
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/libertine/LinLibertineTB-tlf-t1--base.tfm
 INPUT labreport.aux
 INPUT ./labreport.out
 INPUT ./labreport.out

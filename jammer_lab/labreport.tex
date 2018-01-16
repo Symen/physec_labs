@@ -121,7 +121,33 @@ much lower power-consumptions, due to the smaller amount of frames that have to 
 %\end{itemize}
 
 
-%\section{Background and Related Work}
+\section{Background on the WARP}
+The WARP is a transceiver, which means it can be used to send and receive frames respectively. This
+is realized with two independent paths of circuits that are connected to a single antenna (1). 
+The antenna is followed by a switch (2) to either connect to the transmit or receiver
+path. At the receiving path the incoming frames are directly forwarded to the transceiver module
+(4), while the signals leaving this module are amplified to a fixed gain (3). The transceiver module
+controls the conversion between the complex baseband signal and the Radio Frequency (RF) using a
+quadrature modulator. The next layer (5) contains the Digital-to-Analog and Analog-to-Digital
+Converter, which are connected to the chips that implement the 802.11 physical layer (6). Incoming
+frames are written into a RX Packet Buffer, while outgoing frames are read from the TX Packet
+Buffer. Both buffers represent shared memory that is also accessible by the MicroBlaze processor (7),
+which handles the MAC layer of the network interface. Whats special about the WARP, is the fact that
+the processor allows to start processing while incoming frames are still being received. This
+allows us to implement a reactive jammer. It is only necessary to prepare the frames used for the
+jamming signal. Those frames are stored in the TX Packet Buffer and can be send as soon as a
+condition matches to the incoming frame.
+
+The JTAG port (9) is used to flash the firmware of the processor and to upload the implementation of
+the reactive jammer. Any debugging messages that are written to the standard output can be observed
+in a terminal that is connected to the UART to USB port (10).
+
+\begin{figure}[tb!]
+	\hfill
+	\includegraphics[width=1\linewidth]{block_diagram_warp.png}
+	\caption{Block diagram of the 802.11 WARP}
+	\label{fig:block_diagram_warp}
+\end{figure}
 
 \section{Implementation}
 
