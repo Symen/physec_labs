@@ -122,6 +122,9 @@ much lower power-consumptions, due to the smaller amount of frames that have to 
 
 
 \section{Background on the WARP}
+In this Section we describe how the frame handling works on the Wireless Open-Access
+Research Platform (WARP) and why there are multiple receive and transmit buffers.
+
 The WARP is a transceiver, which means it can be used to send and receive frames respectively. This
 is realized with two independent paths of circuits that are connected to a single antenna (1). 
 The antenna is followed by a switch (2) to either connect to the transmit or receiver
@@ -150,6 +153,85 @@ in a terminal that is connected to the UART to USB port (10).
 \end{figure}
 
 \section{Implementation}
+
+In this Section we describe how a reactive jammer can be implemented using the previous described
+Wireless Open-Access Research Platform (WARP). As a development environment we used the Eclipse-based
+Xilinx Software Development Kit and Putty as a terminal for the standard output. The logic is
+implemented in C and executed by the CPU low of the WARP.
+
+\pagebreak
+
+As a first step we setup the WiFi 802.11 standard and the callback-function that are executed if a
+new frame is received or needs to transmitted. 
+
+\begin{verbatim}
+	wlan_mac_low_init(WARPNET_TYPE_80211_LOW);
+
+	// ...
+
+	wlan_mac_low_set_frame_rx_callback((void*)frame_receive);
+	wlan_mac_low_set_frame_tx_callback((void*)frame_transmit);
+\end{verbatim}
+
+In order to check for incoming frames, the wlan\_mac\_low\_poll\_frame\_rx function needs to be executed
+in a loop. 
+
+\begin{verbatim}
+	while(1) {
+		wlan_mac_low_poll_frame_rx();
+	}
+\end{verbatim}
+
+If the RX PHY received a new frame this function will call the frame\_received function to handle the
+reception. Since, we are about to implement a reactive jammer, it is of importance that the jamming
+signal is send as soon as the currently received frame can be assigned to a certain transmitter.
+Therefore, we added the check for the jamming condition (MAC address of the target system) to the
+frame\_received function. If the condition is "true" we create the jamming signal and transmit it
+using the frame\_transmit function. Notice that the transmission is started, while still
+receiving the targeted signal. As a result the signal gets destroyed for other receivers.
+
+
+\begin{verbatim}
+	u32 frame_receive(u8 rx_pkt_buf, u8 rate, u16 length){
+		mac_header_80211 header;
+
+		while(wlan_mac_get_last_byte_index() <= 19) {
+			xil_printf("");
+		}
+
+		memcpy(&header, ((void *)(RX_PKT_BUF_TO_ADDR(rx_pkt_buf)) + 
+				PHY_RX_PKT_BUF_PHY_HDR_SIZE + sizeof(rx_frame_info)), 
+				sizeof(header));
+
+		if (wlan_addr_eq(header.address_1, jam_me_mac)) {
+			is_pushed = 1;
+			u8 pkt_buf = 0;
+			mac_header_80211 header;
+			header.frame_control_1 = MAC_FRAME_CTRL1_SUBTYPE_DATA;
+			header.frame_control_2 = MAC_FRAME_CTRL2_FLAG_FROM_DS;
+			header.duration_id = 0;
+			memcpy(header.address_1, mac, 6);
+			memcpy(header.address_2, mac, 6);
+			memcpy(header.address_3, mac, 6);
+			header.sequence_control = 0;
+
+			memcpy((TX_PKT_BUF_TO_ADDR(pkt_buf) + 
+				PHY_TX_PKT_BUF_PHY_HDR_SIZE + 
+				sizeof(tx_frame_info)), 
+				&header, 
+				sizeof(header));
+			set_tx_power(pkt_buf, TX_POWER_MAX_DBM);
+			set_tx_ant_mode(pkt_buf, TX_ANTMODE_SISO_ANTA);
+			frame_transmit(pkt_buf,WLAN_PHY_RATE_BPSK12, sizeof(header),NULL);
+		}
+
+		//Blocks until reception is complete
+		u32 state = wlan_mac_dcf_hw_rx_finish(); 
+		
+		// ...
+	}
+\end{verbatim}
+
 
 \section{Conclusion and Take-Away}
 

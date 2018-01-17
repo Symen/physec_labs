@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.24)  16 JAN 2018 11:03
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.24)  17 JAN 2018 15:28
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -966,44 +966,95 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
 File: block_diagram_warp.png Graphic file (type png)
 
 <use block_diagram_warp.png>
-Package pdftex.def Info: block_diagram_warp.png used on input line 147.
+Package pdftex.def Info: block_diagram_warp.png used on input line 150.
 (pdftex.def)             Requested size: 241.14749pt x 94.32047pt.
- (./labreport.bbl
+
+Underfull \vbox (badness 7291) has occurred while \output is active []
+
+ [1.1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+
+ <./block_diagram_warp.png>]
+LaTeX Font Info:    Try loading font information for T1+zi4 on input line 167.
+
+(/usr/share/texlive/texmf-dist/tex/latex/inconsolata/t1zi4.fd
+File: t1zi4.fd 2014/06/22 T1/zi4 (Inconsolata)
+)
+Package microtype Info: Loading generic settings for font family
+(microtype)             `zi4' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+Package microtype Info: Character `textendash ' is missing
+(microtype)             in font `T1/zi4/m/n/9'.
+(microtype)             Ignoring protrusion settings for this character.
+Package microtype Info: Character `textemdash ' is missing
+(microtype)             in font `T1/zi4/m/n/9'.
+(microtype)             Ignoring protrusion settings for this character.
+
+Overfull \hbox (13.7775pt too wide) in paragraph at lines 174--174
+[]\T1/zi4/m/n/9 wlan_mac_low_set_frame_rx_callback((void*)frame_receive);[] 
+ []
+
+
+Overfull \hbox (18.2775pt too wide) in paragraph at lines 174--174
+[]\T1/zi4/m/n/9 wlan_mac_low_set_frame_tx_callback((void*)frame_transmit);[] 
+ []
+
+
+Overfull \hbox (27.26573pt too wide) in paragraph at lines 176--178
+[]\T1/LinuxLibertineT-TLF/m/n/9 (-20) In or-der to check for in-com-ing frames,
+ the wlan_mac_low_poll_frame_rx
+ []
+
+
+Overfull \hbox (20.52753pt too wide) in paragraph at lines 233--233
+[]\T1/zi4/m/n/9 memcpy(&header, ((void *)(RX_PKT_BUF_TO_ADDR(rx_pkt_buf)) +[] 
+ []
+
+
+Overfull \hbox (53.60251pt too wide) in paragraph at lines 233--233
+[]\T1/zi4/m/n/9 frame_transmit(pkt_buf,WLAN_PHY_RATE_BPSK12, sizeof(header),NUL
+L);[] 
+ []
+
+(./labreport.bbl
 
 Package natbib Warning: Empty `thebibliography' environment on input line 40.
 
-) [1.1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
-
- <./block_diagram_warp.png>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 162.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 162.
+)
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
+(Font)              scaled to size 9.0pt on input line 244.
+ [2.2]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 244.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 244.
  (./labreport.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 162.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 162.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 244.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 244.
 Package rerunfilecheck Info: File `labreport.out' has not changed.
 (rerunfilecheck)             Checksum: 2C077A72DF48D18F0E44B24D4385A021;891.
  ) 
 Here is how much of TeX's memory you used:
- 17377 strings out of 493029
- 259195 string characters out of 6136234
+ 17428 strings out of 493029
+ 260248 string characters out of 6136234
  376733 words of memory out of 5000000
- 20353 multiletter control sequences out of 15000+600000
- 91450 words of font info for 119 fonts, out of 8000000 for 9000
+ 20372 multiletter control sequences out of 15000+600000
+ 98929 words of font info for 136 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  60i,11n,94p,800b,464s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/us
-r/share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{/usr/shar
-e/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/share/texl
-ive/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}</usr/share/texlive/te
-xmf-dist/fonts/type1/public/libertine/LinBiolinumT.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/libertine/LinBiolinumTB.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/libertine/LinLibertineT.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/libertine/LinLibertineTB.pfb></usr/share/texlive/texmf-
-dist/fonts/type1/public/libertine/LinLibertineTI.pfb>
-Output written on labreport.pdf (1 page, 372988 bytes).
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}{/usr/
+share/texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/usr/share/
+texlive/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}{/usr/share/texliv
+e/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/share/texlive/texm
+f-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}</usr/share/texlive/texmf-dist
+/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/public/libertine/LinBiolinumT.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/libertine/LinBiolinumTB.pfb></usr/share/texlive/texmf-dis
+t/fonts/type1/public/libertine/LinLibertineT.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/libertine/LinLibertineTB.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/libertine/LinLibertineTI.pfb>
+Output written on labreport.pdf (2 pages, 410177 bytes).
 PDF statistics:
- 81 PDF objects out of 1000 (max. 8388607)
- 61 compressed objects within 1 object stream
- 10 named destinations out of 1000 (max. 500000)
- 22094 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 91 PDF objects out of 1000 (max. 8388607)
+ 68 compressed objects within 1 object stream
+ 11 named destinations out of 1000 (max. 500000)
+ 26702 words of extra memory for PDF output out of 29859 (max. 10000000)
 
